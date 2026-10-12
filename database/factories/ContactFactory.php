@@ -19,8 +19,8 @@ class ContactFactory extends Factory
     {
         return [
             'category_id' => fn () => Category::inRandomOrder()->value('id'),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
+            'first_name' => fake()->lastName(),
+            'last_name' => fake()->firstName(),
             // 1〜3のランダムな性別
             'gender' => fake()->numberBetween(1, 3),
             'email' => fake()->safeEmail(),
