@@ -25,11 +25,13 @@ class ContactController extends Controller
      */
     public function confirm(StoreContactRequest $request)
     {
-         $validated = $request->validated();
-         $category = Category::find($validated['category_id']);
+        $validated = $request->validated();
+        $category = Category::find($validated['category_id']);
+        $tagIds = collect($validated['tag_ids'] ?? '');
+        $tags = Tag::whereIn('id', $tagIds)->get();
 
         // 入力値を保持したまま確認画面へ
-        return view('contact.confirm', compact('validated','category'));
+        return view('contact.confirm', compact('validated','category','tags'));
     }
 
     /**
@@ -39,9 +41,12 @@ class ContactController extends Controller
     {
         $validated = $request->validated();
 
-        Contact::create($validated);
+        $contact = Contact::create($validated);
+        
+        // タグを追加
+        $contact->tags()->attach($validated['tag_ids'] ?? []);
 
-        return redirect()->route('contacts.thanks');
+        return redirect()->route('contact.thanks');
     }
 
     /**
