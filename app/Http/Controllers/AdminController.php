@@ -21,12 +21,12 @@ class AdminController extends Controller
         // キーワードでの絞り込み（部分一致）
         if ($request->filled('keyword')) {
             $contacts = $contacts->where(function ($query) use ($request) {
-                    $query->where('first_name', 'like',  "%{$request->keyword}%")
-                        ->orWhere('last_name', 'like',  "%{$request->keyword}%")
-                        ->orWhere('email', 'like',  "%{$request->keyword}%");
-                });
+                $query->where('first_name', 'like', "%{$request->keyword}%")
+                    ->orWhere('last_name', 'like', "%{$request->keyword}%")
+                    ->orWhere('email', 'like', "%{$request->keyword}%");
+            });
         }
-        
+
         // 性別での絞り込み
         if ($request->filled('gender') && $request->gender != 0) {
             $contacts = $contacts->where('gender', $request->gender);
@@ -42,11 +42,11 @@ class AdminController extends Controller
         }
 
         $contacts = $contacts
-                    ->latest() // 新しい順に並べ替え
-                    ->paginate(7) // ページネーション（1ページに7件）
-                    ->withQueryString();
+            ->latest() // 新しい順に並べ替え
+            ->paginate(7) // ページネーション（1ページに7件）
+            ->withQueryString();
 
-        return view('admin.index', compact('contacts','categories','tags'));
+        return view('admin.index', compact('contacts', 'categories', 'tags'));
     }
 
     /**

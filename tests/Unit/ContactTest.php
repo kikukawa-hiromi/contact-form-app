@@ -62,7 +62,7 @@ class ContactTest extends TestCase
 
         // リレーション経由で取得したコレクションの検証
         $syncedTags = $contact->fresh()->tags;
-        
+
         $this->assertInstanceOf(Collection::class, $syncedTags);
         $this->assertCount(2, $syncedTags);
         $this->assertTrue($syncedTags->contains($tag1));
@@ -72,11 +72,11 @@ class ContactTest extends TestCase
         // 中間テーブル (contact_tag) のデータ存在検証
         $this->assertDatabaseHas('contact_tag', [
             'contact_id' => $contact->id,
-            'tag_id'      => $tag1->id,
+            'tag_id' => $tag1->id,
         ]);
         $this->assertDatabaseHas('contact_tag', [
             'contact_id' => $contact->id,
-            'tag_id'      => $tag2->id,
+            'tag_id' => $tag2->id,
         ]);
     }
 }

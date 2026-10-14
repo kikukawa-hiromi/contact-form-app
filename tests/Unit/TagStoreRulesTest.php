@@ -22,7 +22,7 @@ class TagStoreRulesTest extends TestCase
 
     public function test_名前が未入力の場合はエラーになること(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([
@@ -34,7 +34,7 @@ class TagStoreRulesTest extends TestCase
 
     public function test_名前が50文字を超える場合はエラーになること(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([
@@ -46,7 +46,7 @@ class TagStoreRulesTest extends TestCase
 
     public function test_名前がデータ内で重複する場合はエラーになること(): void
     {
-        $request = new StoreTagRequest();
+        $request = new StoreTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([

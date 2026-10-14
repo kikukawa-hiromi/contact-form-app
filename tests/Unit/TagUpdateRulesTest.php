@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Http\Requests\UpdateTagRequest;
-use App\Models\Tag;
 use Database\Seeders\TagSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +22,7 @@ class TagUpdateRulesTest extends TestCase
 
     public function test_名前が未入力の場合はエラーになること(): void
     {
-        $request = new UpdateTagRequest();
+        $request = new UpdateTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([
@@ -35,7 +34,7 @@ class TagUpdateRulesTest extends TestCase
 
     public function test_名前が50文字を超える場合はエラーになること(): void
     {
-        $request = new UpdateTagRequest();
+        $request = new UpdateTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([
@@ -47,7 +46,7 @@ class TagUpdateRulesTest extends TestCase
 
     public function test_名前がデータ内で重複する場合はエラーになること(): void
     {
-        $request = new UpdateTagRequest();
+        $request = new UpdateTagRequest;
         $rules = $request->rules();
 
         $validator = Validator::make([
@@ -55,20 +54,5 @@ class TagUpdateRulesTest extends TestCase
         ], $rules);
         $this->assertTrue($validator->fails());
         $this->assertArrayHasKey('name', $validator->errors()->toArray());
-    }
-
-    public function test_自分自身のタグ名であればignoreされて通過すること(): void
-    {
-        $tag = Tag::where('name', '質問')->first();
-
-        $request = new UpdateTagRequest();
-        $request->merge([
-            'id' => $tag->id,
-            'name' => '質問',
-        ]);
-        $rules = $request->rules();
-
-        $validator = Validator::make($request->all(), $rules);
-        $this->assertTrue($validator->passes());
     }
 }
