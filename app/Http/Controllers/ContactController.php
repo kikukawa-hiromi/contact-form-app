@@ -17,7 +17,7 @@ class ContactController extends Controller
         $categories = Category::all();
         $tags = Tag::all();
 
-        return view('contact.index', compact('categories','tags'));
+        return view('contact.index', compact('categories', 'tags'));
     }
 
     /**
@@ -31,7 +31,7 @@ class ContactController extends Controller
         $tags = Tag::whereIn('id', $tagIds)->get();
 
         // 入力値を保持したまま確認画面へ
-        return view('contact.confirm', compact('validated','category','tags'));
+        return view('contact.confirm', compact('validated', 'category', 'tags'));
     }
 
     /**
@@ -42,7 +42,7 @@ class ContactController extends Controller
         $validated = $request->validated();
 
         $contact = Contact::create($validated);
-        
+
         // タグを追加
         $contact->tags()->attach($validated['tag_ids'] ?? []);
 

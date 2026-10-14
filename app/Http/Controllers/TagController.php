@@ -8,6 +8,23 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+    /**
+     * タグ編集フォームを表示
+     */
+    public function edit(Tag $tag)
+    {
+        return view('admin.tags.edit', compact('tag'));
+    }
+
+    /**
+     * タグを削除
+     */
+    public function destroy(Tag $tag)
+    {
+        $tag->delete();
+
+        return redirect('/admin');
+    }
 
     /**
      * タグを新規作成
@@ -20,29 +37,11 @@ class TagController extends Controller
     }
 
     /**
-     * タグ編集フォームを表示
-     */
-    public function edit(Tag $tag)
-    {
-        return view('admin.tags.edit', compact('tag'));
-    }
-
-    /**
      * タグを更新
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
         $tag->update($request->validated());
-
-        return redirect('/admin');
-    }
-
-    /**
-     * タグを削除
-     */
-    public function destroy(Tag $tag)
-    {
-        $tag->delete();
 
         return redirect('/admin');
     }

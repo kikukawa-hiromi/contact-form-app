@@ -50,11 +50,11 @@ class TagTest extends TestCase
 
         // 中間テーブル (contact_tag) のデータ存在確認
         $this->assertDatabaseHas('contact_tag', [
-            'tag_id'     => $tag->id,
+            'tag_id' => $tag->id,
             'contact_id' => $contact1->id,
         ]);
         $this->assertDatabaseHas('contact_tag', [
-            'tag_id'     => $tag->id,
+            'tag_id' => $tag->id,
             'contact_id' => $contact2->id,
         ]);
     }

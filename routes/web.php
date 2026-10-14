@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // トップページ（/）でお問い合わせ入力ページを表示
 Route::get('/', [ContactController::class, 'index'])->name('contact.index');
 
@@ -37,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/contacts/{contact}', [AdminController::class, 'show'])->name('admin.show');
     // お問い合わせを削除
     Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy'])->name('admin.destroy');
-    
+
     // タグのCRUDルート
     Route::resource('admin/tags', TagController::class);
 });
