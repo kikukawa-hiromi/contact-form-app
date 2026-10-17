@@ -36,7 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/contacts/{contact}', [AdminController::class, 'show'])->name('admin.show');
     // お問い合わせを削除
     Route::delete('/admin/contacts/{contact}', [AdminController::class, 'destroy'])->name('admin.destroy');
-
+    // お問い合わせ一覧のCSVエクスポート
+    Route::get('/contacts/export', [ContactController::class, 'export'])->name('contacts.export');
     // タグのCRUDルート
     Route::resource('admin/tags', TagController::class);
 });

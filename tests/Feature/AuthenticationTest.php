@@ -105,4 +105,11 @@ class AuthenticationTest extends TestCase
 
         $response->assertRedirect(route('login'));
     }
+
+    public function test_未認証ユーザーがお問い合わせ一覧をエクスポートするとログインページが表示される(): void
+    {
+        $response = $this->get('/contacts/export');
+
+        $response->assertRedirect(route('login'));
+    }
 }

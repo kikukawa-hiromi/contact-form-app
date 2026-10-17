@@ -16,35 +16,14 @@ class AdminController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        $contacts = Contact::with('tags');
 
-        // キーワードでの絞り込み（部分一致）
-        if ($request->filled('keyword')) {
-            $contacts = $contacts->where(function ($query) use ($request) {
-                $query->where('first_name', 'like', "%{$request->keyword}%")
-                    ->orWhere('last_name', 'like', "%{$request->keyword}%")
-                    ->orWhere('email', 'like', "%{$request->keyword}%");
-            });
-        }
+        // リクエストから必要な検索パラメーターのみ取得
+        $filters = $request->only(['keyword', 'gender', 'category_id', 'date']);
 
-        // 性別での絞り込み
-        if ($request->filled('gender') && $request->gender != 0) {
-            $contacts = $contacts->where('gender', $request->gender);
-        }
-
-        // お問い合わせの種類での絞り込み
-        if ($request->filled('category_id')) {
-            $contacts = $contacts->where('category_id', $request->category_id);
-        }
-        // 登録日での絞り込み
-        if ($request->filled('date')) {
-            $contacts = $contacts->whereDate('created_at', $request->date);
-        }
-
-        $contacts = $contacts
-            ->latest() // 新しい順に並べ替え
-            ->paginate(7) // ページネーション（1ページに7件）
-            ->withQueryString();
+        // スコープ呼びで全検索条件が適用
+        $contacts = Contact::filter($filters)
+                        ->with('tags')
+                        ->paginate(7); // ページネーション（1ページに7件）
 
         return view('admin.index', compact('contacts', 'categories', 'tags'));
     }
