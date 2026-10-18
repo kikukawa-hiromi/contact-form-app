@@ -25,7 +25,7 @@ class ContactFactory extends Factory
             // 1〜3のランダムな性別
             'gender' => fake()->numberBetween(1, 3),
             'email' => fake()->safeEmail(),
-            'tel' => fake()->phoneNumber(),
+            'tel' => str_replace('-', '', fake()->phoneNumber()),
             'address' => fake()->prefecture().fake()->streetAddress(),
             'building' => fake()->secondaryAddress(),
             'detail' => fake()->realText(120),
