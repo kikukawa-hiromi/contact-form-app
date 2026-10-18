@@ -30,12 +30,16 @@
 ```bash
 git clone https://github.com/kikukawa-hiromi/contact-form-app.git contact-form-app
 ```
-#### 2. 環境変数ファイルを作成
+#### 2. プロジェクトディレクトリに移動
+```bash
+cd contact-form-app
+```
+#### 3. 環境変数ファイルを作成
 .env.exampleファイルを、.envファイルにコピーします。
 ```bash
 cp .env.example .env
 ```
-#### 3. Composerパッケージをインストール
+#### 4. Composerパッケージをインストール
 Dockerを使用してComposerパッケージをインストールします。
 ```bash
 docker run --rm \
@@ -45,10 +49,6 @@ docker run --rm \
     -e COMPOSER_CACHE_DIR=/tmp/composer_cache \
     laravelsail/php82-composer:latest \
     composer install
-```
-#### 4. プロジェクトディレクトリに移動
-```bash
-cd contact-form-app
 ```
 #### 5. Laravel Sailをインストール
 ```bash
