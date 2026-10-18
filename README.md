@@ -9,7 +9,7 @@
   - お問い合わせ一覧表示（ペジネーション・検索フィルター付き）・詳細確認・削除
   - お問い合わせデータのCSVエクスポート（ダウンロード機能）
   - タグ追加・更新・削除
-- **API機能**:
+- **公開API機能**:
   - お問い合わせ一覧取得（ペジネーション・検索フィルター付き）・詳細取得・新規登録・更新・削除
 
 ---
@@ -40,7 +40,7 @@ docker run --rm \
     -w /var/www/html \
     -e COMPOSER_CACHE_DIR=/tmp/composer_cache \
     laravelsail/php82-composer:latest \
-    composer create-project laravel/laravel:^10.0 contact-form-app
+    composer install
 ```
 #### 3. 環境変数ファイルを作成
 .env.example をコピーして .env ファイルを作成します。
