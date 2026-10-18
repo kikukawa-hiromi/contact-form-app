@@ -9,7 +9,9 @@
   - お問い合わせ一覧表示（ペジネーション・検索フィルター付き）・詳細確認・削除
   - お問い合わせデータのCSVエクスポート（ダウンロード機能）
   - タグ追加・更新・削除
- 
+- **API機能**:
+  - お問い合わせ一覧取得（ペジネーション・検索フィルター付き）・詳細取得・新規登録・更新・削除
+
 ---
 
 ### ER図
@@ -67,6 +69,17 @@ Laravelの暗号化キーを生成します。
 - フロントエンド: Blade, Tailwind CSS, Vite
 - コード整形・テスト: Laravel Pint, PHPUnit
 - ソース管理: Git, GitHub
+### API エンドポイント一覧
+
+ベースURL: `/api/v1`
+
+| メソッド | パス | 処理概要 |
+| :--- | :--- | :--- |
+| `GET` | `/api/v1/contacts` | お問い合わせ一覧を取得 |
+| `POST` | `/api/v1/contacts` | お問い合わせを新規登録 |
+| `GET` | `/api/v1/contacts/{contact}` | お問い合わせ詳細を取得 |
+| `PUT` | `/api/v1/contacts/{contact}` | お問い合わせ情報を更新 |
+| `DELETE` | `/api/v1/contacts/{contact}` | お問い合わせを削除 |
 ### 開発環境URL
 - Webアプリケーション: http://localhost
 - DB管理 (phpMyAdmin): http://localhost:8080
