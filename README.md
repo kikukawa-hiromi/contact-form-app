@@ -42,25 +42,58 @@ docker run --rm \
     laravelsail/php82-composer:latest \
     composer install
 ```
-#### 3. 環境変数ファイルを作成
-.env.example をコピーして .env ファイルを作成します。
+#### 3. プロジェクトディレクトリに移動
 ```bash
-cp .env.example .env
+cd contact-form-app
 ```
-#### 4. Docker環境を起動
+#### 4. Laravel Sailをインストール
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    -e COMPOSER_CACHE_DIR=/tmp/composer_cache \
+    laravelsail/php82-composer:latest \
+    composer require laravel/sail --dev
+```
+#### 5. Sailの設定ファイルをパブリッシュ（MySQLを選択）
+```bash
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    -e COMPOSER_CACHE_DIR=/tmp/composer_cache \
+    laravelsail/php82-composer:latest \
+    php artisan sail:install --with=mysql
+```
+#### 6. 環境変数ファイルの確認
+.env ファイルを開き、データベース接続情報が以下と一致していることを確認します。
+```bash
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=sail
+DB_PASSWORD=password
+```
+#### 7. Docker環境を起動
 コンテナを起動します。初回はイメージのビルドに数分かかる場合があります。
 ```bash
 ./vendor/bin/sail up -d
 ```
-#### 5. アプリケーションキーを生成
+#### 8. アプリケーションキーを生成
 Laravelの暗号化キーを生成します。
 ```bash
 ./vendor/bin/sail artisan key:generate
 ```
-#### 6. データベースの準備
+#### 9. データベースの準備
 テーブルを作成し、テストデータを投入します。
 ```bash
 ./vendor/bin/sail artisan migrate:fresh --seed
+```
+#### 10. Vite開発サーバーの起動
+```bash
+sail npm run dev
 ```
 ### 使用技術
 - バックエンド: PHP 8.2 / Laravel 10.0
